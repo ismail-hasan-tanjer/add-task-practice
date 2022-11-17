@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data-input-local-storage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+        .data-center {
+            margin: 0 auto;
+            padding: 20px;
+            width: 30%;
+            background-color: aquamarine;
+            }
+    </style>
+</head>
+
+<body class="">
+
+    <section class="data-center">
+        <h1>Show Result this Part: </h1>
+       
+
+    </section>
+<br>
+    <section class="data-center">
+        <div id="taskoM">
+            <label for="mtTask"></label><br>
+            <input type="text" id="mtTask" name="mtTask"><br><br>
+            <input type="button" id="tBtn" class="btn btn-primary" value="Add Task">
+        </div>
+
+    </section>
+    <br>
+    <section class="data-center py-5">
+        <div id="result">
+                <h3>My Task List:</h3>
+                <ul id="allTaskLists">
+                    <li>Task One</li>
+                </ul>
+        </div>
+    </section>
+
+    <script>
+        let btn = document.getElementById('tBtn');
+        let task = document.getElementById('mtTask');
+        let taskSelection = document.getElementById('allTaskLists');
+        let tasks;
+        
+        console.log(typeof localStorage.getItem('tasks'));
+        console.dir(localStorage);
+        console.log('tasks');
+
+        btn.addEventListener('click', function(){
+            if(task.value == ""){
+                alert('Please insert a value first');
+            }else {
+                if (null == localStorage.getItem('tasks')){
+                    tasks = [];
+                }else {
+                    tasks = JSON.parse(localStorage.getItem('tasks'));
+                }
+
+            tasks.push(task.value);
+            let data = JSON.stringify(tasks);
+            console.log(typeof data);
+            localStorage.setItem('tasks', data);
+            location.reload();
+            }
+            });
+        
+            let totalData = JSON.parse(localStorage.getItem('tasks'));
+            totalData.forEach(function(value){
+            let taskLi =document.createElement('li');
+            taskLi.innerHTML = value;
+            taskSelection.append(taskLi);
+            });
+</script>
+
+</body>
+
+</html>
